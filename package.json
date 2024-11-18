@@ -1,0 +1,27 @@
+{
+  "name": "meditouch-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kaiumallimon/meditouch-backend.git"
+  },
+  "keywords": [
+    "nodejs",
+    "meditouch",
+    "mongodb",
+    "mongo",
+    "node",
+    "healthcare"
+  ],
+  "author": "Kaium Al Limon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaiumallimon/meditouch-backend/issues"
+  },
+  "homepage": "https://github.com/kaiumallimon/meditouch-backend#readme",
+  "description": ""
+}
