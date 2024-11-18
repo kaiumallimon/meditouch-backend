@@ -1,7 +1,9 @@
 // Imports
 const express = require('express');
 
+// create express app
+const app = express();
 
 
-// configure dotenv
-require('dotenv').config(); 
+//export the app
+module.exports = app;
