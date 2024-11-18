@@ -1,11 +1,11 @@
-//import express
+//imports
 const express = require('express');
-
-//import the app from server.js
 const app = require('./server');
-
-// import the test route
 const testRoute = require('./features/test/routes/test.route'); 
+const passport = require('./config/passport.config');
+const session = require('express-session');
+const connectDB = require('./config/database.config');
+const authRoutes = require('./features/auth/routes/auth.routes');   
 
 
 // configure dotenv
@@ -19,6 +19,26 @@ app.use(express.json());
 
 // use the test route
 app.use('/test',testRoute);
+
+
+// use session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+
+
+// use passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// connect to the database
+connectDB();
+
+app.use('/auth',authRoutes);
+
+
 
 // Start the server
 app.listen(PORT, () => {
