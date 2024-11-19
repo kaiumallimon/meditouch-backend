@@ -27,7 +27,14 @@ const userSchema = new mongoose.Schema({
     dob: {
         type: Date,
         required: true
+    },
+    image:{
+        type: String,
+        required: true
     }
+},{
+    
+    collection: 'users',
 });
 
 // hash the password before saving

@@ -1,44 +1,55 @@
 //imports
-const passport = require('passport'); 
-const User = require('../../../models/user.model'); 
+const passport = require('passport');
+const User = require('../../../models/user.model');
+const createUpload = require("../../../utils/image.upload");
 
-
-// register controller: to register a new user
 exports.register = async (req, res) => {
     try {
-        // get the user details from the request body
+        console.log(req.file); // Debugging the file
+
         const { name, phone, email, password, gender, dob } = req.body;
 
-        // check if the user already exists
+        // Check if the user already exists
         const existingUser = await User.findOne({ email });
-
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ message: "User already exists" });
         }
 
-        // create a new user
+        // If no user exists, check if an image is uploaded
+        let imageUrl = null;
+        if (req.file) {
+            const serverBaseUrl = `${req.protocol}://${req.get("host")}`;
+            imageUrl = `${serverBaseUrl}/uploads/${req.file.filename}`;  // Make sure this matches the static path
+        }
+
+        // Create a new user
         const newUser = new User({
             name,
             phone,
             email,
             password,
             gender,
-            dob
+            dob,
+            image: imageUrl, // Only set imageUrl if a file was uploaded
         });
 
-        // save the user
+        // Save the new user to the database
         await newUser.save();
 
-        // return a response
         res.status(201).json({
-            status: 'success',
-            message: 'User created successfully'
+            status: "success",
+            message: "User created successfully",
+            user: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                imageUrl: newUser.image, // Include the image URL in the response, even if null
+            },
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-
 
 // login controller: to login a user
 exports.login = async (req, res, next) => {
@@ -59,7 +70,7 @@ exports.login = async (req, res, next) => {
                 user: user
             });
         });
-    })(req, res, next); 
+    })(req, res, next);
 };
 
 

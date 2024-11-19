@@ -6,7 +6,7 @@ const passport = require('./config/passport.config');
 const session = require('express-session');
 const connectDB = require('./config/database.config');
 const authRoutes = require('./features/auth/routes/auth.routes');   
-
+const path = require('path');
 
 // configure dotenv
 require('dotenv').config(); 
@@ -36,8 +36,12 @@ app.use(passport.session());
 // connect to the database
 connectDB();
 
-app.use('/auth',authRoutes);
+// serve static files
 
+app.use('/uploads', express.static('uploads'));
+
+// use the auth routes
+app.use('/auth',authRoutes);
 
 
 // Start the server
