@@ -3,10 +3,13 @@ const express = require('express');
 const app = require('./server');
 const testRoute = require('./features/test/routes/test.route'); 
 const passport = require('./config/passport.config');
+const passport2 = require('./config/doctor.passport.config');
+
 const session = require('express-session');
 const connectDB = require('./config/database.config');
 const authRoutes = require('./features/auth/routes/auth.routes');   
 const path = require('path');
+const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');  
 
 // configure dotenv
 require('dotenv').config(); 
@@ -33,6 +36,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+//use passport for doctor
+
+app.use(passport2.initialize());
+app.use(passport2.session());
+
+
 // connect to the database
 connectDB();
 
@@ -42,6 +53,11 @@ app.use('/uploads', express.static('uploads'));
 
 // use the auth routes
 app.use('/auth',authRoutes);
+
+
+// use the doctor auth route
+
+app.use('/auth/doctor',doctorAuthRoutes);
 
 
 // Start the server
