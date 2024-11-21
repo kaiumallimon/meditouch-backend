@@ -19,6 +19,8 @@ meditouch-backend/
                 |---auth.controller.js
             |---routes/
                 |---auth.routes.js
+        |---mail/
+            |---mail.sender.js
     |---middlewares/
     |---models/
         |---user.model.js
