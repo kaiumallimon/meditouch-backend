@@ -17,7 +17,7 @@ passport.use(new LocalStrategy(
             // check if the user exists
 
             if (!user) {
-                return done(null, false, { message: 'User not found' })
+                return done(null, false, { message: 'No account has been found associated with this email' })
             }
 
             // check if the password is correct
