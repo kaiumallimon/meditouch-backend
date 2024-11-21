@@ -5,7 +5,7 @@ const createUpload = require("../../../utils/image.upload");
 
 exports.register = async (req, res) => {
     try {
-        console.log(req.file); // Debugging the file
+        console.log(req.file); 
 
         const { name, phone, email, password, gender, dob } = req.body;
 
