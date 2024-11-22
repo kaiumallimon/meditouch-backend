@@ -97,9 +97,29 @@ exports.login = async (req, res, next) => {
 // Doctors controller: to get all doctors
 exports.getDoctors = async (req, res) => {
     try {
-        const doctors = await Doctor.find(); // Retrieve all doctors from the database
-        res.status(200).json({ doctors }); // Return the doctors as a JSON response
+        // Get page and limit from query params, with default values
+        const page = parseInt(req.query.page) || 1; // Default to page 1
+        const limit = parseInt(req.query.limit) || 10; // Default to 10 doctors per page
+
+        // Calculate the skip value
+        const skip = (page - 1) * limit;
+
+        // Retrieve doctors with pagination
+        const doctors = await Doctor.find()
+            .skip(skip)
+            .limit(limit);
+
+        // Count the total number of documents
+        const totalDoctors = await Doctor.countDocuments();
+
+        res.status(200).json({
+            status: 'success',
+            currentPage: page,
+            totalPages: Math.ceil(totalDoctors / limit),
+            totalDoctors,
+            doctors, 
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        res.status(500).json({ message: error.message }); 
     }
 };
