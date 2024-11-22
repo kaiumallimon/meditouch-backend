@@ -9,7 +9,8 @@ const session = require('express-session');
 const connectDB = require('./config/database.config');
 const authRoutes = require('./features/auth/routes/auth.routes');   
 const path = require('path');
-const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');  
+const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');
+const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes');     
 
 // configure dotenv
 require('dotenv').config(); 
@@ -58,6 +59,11 @@ app.use('/auth',authRoutes);
 // use the doctor auth route
 
 app.use('/auth/doctor',doctorAuthRoutes);
+
+
+// use the healthtips route
+app.use('/healthtips',healthtipsRoutes);
+
 
 
 // Start the server
