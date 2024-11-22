@@ -12,6 +12,9 @@ const upload = createUpload();  // Define the path for image storage
 router.post('/register', upload.single('image'), authController.register);  
 router.post('/login', authController.login);
 router.get('/doctors', authController.getDoctors);
+router.post('/send-verification-email', authController.sendVerificationCode);  
+router.post('/reset-password/:id', authController.resetPassword);
+router.get('/check-email/', authController.checkEmail);
 
 // Export the router
 module.exports = router;
