@@ -80,8 +80,26 @@ exports.login = async (req, res, next) => {
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find(); // Retrieve all users from the database
+        // exclude the password from the response
+        users.forEach(user => {
+            user.password = undefined;
+        });
         res.status(200).json({ users }); // Return the users as a JSON response
     } catch (error) {
         res.status(500).json({ message: error.message }); // Handle errors
     }
 };
+
+
+// user controller: get a single user by id
+
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id); // Retrieve the user by id
+        // exclude the password from the response
+        user.password = undefined;
+        res.status(200).json({ user }); // Return the user as a JSON response
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // Handle errors
+    }
+}
