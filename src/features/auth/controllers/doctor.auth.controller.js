@@ -109,6 +109,11 @@ exports.getDoctors = async (req, res) => {
             .skip(skip)
             .limit(limit);
 
+        // Exclude the password from the response
+        doctors.forEach(doctor => {
+            doctor.password = undefined;
+        });
+
         // Count the total number of documents
         const totalDoctors = await Doctor.countDocuments();
 
