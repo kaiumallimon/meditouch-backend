@@ -13,6 +13,9 @@ router.post('/register', upload.single('profileImage'), authController.register)
 router.post('/login', authController.login);
 router.get('/users', authController.getUsers);
 router.get('/user/:id', authController.getUserById);
+router.post('/user/send-verification-email', authController.sendVerificationCode);  
+router.post('/user/reset-password/:id', authController.resetPassword);
+router.get('/user/check-email/', authController.checkEmail);
 
 // Export the router
 module.exports = router;

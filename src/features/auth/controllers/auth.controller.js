@@ -2,6 +2,7 @@
 const passport = require('passport');
 const User = require('../../../models/user.model');
 const createUpload = require("../../../utils/image.upload");
+const {sendMail,sendPassword,sendVerificationCode} = require('../../../features/mail/mail.sender');
 
 exports.register = async (req, res) => {
     try {
@@ -101,5 +102,69 @@ exports.getUserById = async (req, res) => {
         res.status(200).json({ user }); // Return the user as a JSON response
     } catch (error) {
         res.status(500).json({ message: error.message }); // Handle errors
+    }
+}
+
+// user controller: reset password
+
+exports.resetPassword = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id); // Retrieve the user by id
+        user.password = req.body.password; // Set the new password
+        await user.save(); // Save the updated user
+        res.status(200).json({ message: "Password reset successful" }); // Return a success message
+    } catch (error) {
+        res.status(500).json({ message: error.message }); // Handle errors
+    }
+}
+
+
+/**
+ * Controller to handle sending verification code.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {void}
+ */
+exports.sendVerificationCode = async (req, res) => {
+    const { code, email } = req.body;
+
+    // Validate input
+    if (!code || !email) {
+        return res.status(400).json({
+            success: false,
+            message: 'Both email and verification code are required.',
+        });
+    }
+
+    try {
+        // Call the sendVerificationCode function
+        await sendVerificationCode(code, email);
+
+        // Send success response to the client
+        return res.status(200).json({
+            success: true,
+            message: 'Verification code sent successfully.',
+        });
+    } catch (error) {
+        // Log the error and send failure response
+        console.error('Error sending verification code:', error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to send verification code. Please try again later.',
+        });
+    }
+};
+
+
+exports.checkEmail = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User found" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 }
