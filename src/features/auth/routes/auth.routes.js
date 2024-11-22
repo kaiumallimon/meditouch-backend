@@ -12,6 +12,7 @@ const upload = createUpload();  // Define the path for image storage
 router.post('/register', upload.single('profileImage'), authController.register);  
 router.post('/login', authController.login);
 router.get('/users', authController.getUsers);
+router.get('/user/:id', authController.getUserById);
 
 // Export the router
 module.exports = router;
