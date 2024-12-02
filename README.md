@@ -50,6 +50,21 @@ Next, Install all the dependencies(make sure that the latest version of node.js 
 ```bash
 npm install
 ```
+```bash
+Run the following command to check the current policy:
+
+To check : 
+**Get-ExecutionPolicy**
+
+To change it temporary : 
+**Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass**
+
+Do it permanetly :
+**Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser**
+
+Reset after work done :
+**Set-ExecutionPolicy Restricted**
+```
 
 Now, the project setup is complete. To run the project, you can simply run the following command:
 
