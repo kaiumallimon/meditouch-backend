@@ -5,7 +5,6 @@ const {sendMail,sendPassword,sendVerificationCode} = require('../../../features/
 
 exports.register = async (req, res) => {
     try {
-        console.log(req.file); 
 
         const { name, phone, email, password, gender, dob } = req.body;
 
