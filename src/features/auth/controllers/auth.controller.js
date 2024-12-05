@@ -1,7 +1,6 @@
 //imports
-const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const User = require('../../../models/user.model');
-const createUpload = require("../../../utils/image.upload");
 const {sendMail,sendPassword,sendVerificationCode} = require('../../../features/mail/mail.sender');
 
 exports.register = async (req, res) => {
@@ -52,28 +51,45 @@ exports.register = async (req, res) => {
     }
 };
 
-// login controller: to login a user
-exports.login = async (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.status(400).json({ message: info.message });
-        }
-        req.logIn(user, (err) => {
-            if (err) {
-                return next(err);
-            }
-            return res.status(200).json({
-                status: 'success',
-                message: 'Login successful',
-                user: user
-            });
-        });
-    })(req, res, next);
-};
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
+        // 1. Find the user by email
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ message: 'No user found with that email' });
+        }
+
+        // 2. Compare the entered password with the stored hash
+        const isMatch = await user.matchPassword(password);
+
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Incorrect password' });
+        }
+
+        // 3. Generate a JWT token (you can also store user in a session, but JWT is more scalable)
+        const token = jwt.sign(
+            { userId: user._id, email: user.email }, // Payload
+            process.env.JWT_SECRET,                   // Secret key for signing the token
+            { expiresIn: '1h' }                      // Expiration time (optional)
+        );
+
+        user.password = undefined; // Exclude the password from the user object
+
+        // 4. Send the response with the token and user details
+        res.status(200).json({
+            status: 'success',
+            message: 'Login successful',
+            token,  // Send the token to the client
+            user: user,
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 
