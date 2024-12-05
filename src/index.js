@@ -11,7 +11,7 @@ const authRoutes = require('./features/auth/routes/auth.routes');
 const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');
 const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes');    
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
-
+const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 // configure dotenv
 require('dotenv').config(); 
 
@@ -41,6 +41,11 @@ connectDB();
 // serve static files
 
 app.use('/uploads', express.static('uploads'));
+
+
+// use the api key route
+
+app.use('/core/security/apikey',apikeyRoutes);
 
 // use the auth routes
 app.use('/auth',authRoutes);
