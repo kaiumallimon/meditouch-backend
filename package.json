@@ -31,10 +31,13 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "meditouch-backend": "file:",
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.1",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   }
