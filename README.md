@@ -12,7 +12,6 @@ meditouch-backend/
 |---src/
     |---config/
         |---database.config.js
-        |---pasport.config.js
     |---features/
         |---auth/
             |---controllers/
@@ -22,6 +21,7 @@ meditouch-backend/
         |---mail/
             |---mail.sender.js
     |---middlewares/
+        |---apikey.middleware.js
     |---models/
         |---user.model.js
     |---utils/
@@ -90,6 +90,25 @@ Don't Forget to create a `.env` file with this format:
 DB_URL=your_mongodb_url
 PORT=3000
 SESSION_SECRET=your_complex_session_secret
+JWT_SECRET=your_jwt_secret
+EMAIL=your_email_for_smtp
+EMAIL_PASSWORD=generated_app_security_code
+X_API_KEY=api_key
+```
+
+### Api validation with api keys
+Before making a request to the server with api url, make sure that you have an api key created (both local key and the remote key) otherwise you'll get an unautorized response.
+
+Process to include api validation in a api with proper permission:
+
+Import the apikey validation middleware:
+
+```bash
+const middleware = require('../<path to your middlware>/apikey.middleware');
+```
+Include the middleware in the router with necessary permission:
+```bash
+router.get('/api-endpoint', middleware('read'), controller);
 ```
 
 ### Author
