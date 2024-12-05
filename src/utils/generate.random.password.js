@@ -11,6 +11,20 @@ const generateRandomPassword = () => {
     return password;
 };
 
+const generateApiKey = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const apiKeyLength = 32;
+    let apiKey = '';
+
+    for (let i = 0; i < apiKeyLength; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        apiKey += characters[randomIndex];
+    }
+
+    return apiKey;
+
+};
+
 
 // exports
-module.exports = generateRandomPassword;
+module.exports = {generateRandomPassword, generateApiKey};
