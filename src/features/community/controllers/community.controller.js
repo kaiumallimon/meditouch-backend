@@ -233,10 +233,10 @@ const communityController = {
   async updateReply(req, res) {
     try {
       console.log("Request Parameters:", req.params);
-      const { id, commendId } = req.params; // Get post and comment IDs from the URL params
-      console.log( "comment id : " + commendId);
-      const { replyId, text } = req.body; // Get replyId and new text from the request body
-      //console.log( "comment id : " + replyId );
+      const id = req.params.id; 
+      const commentId = req.params.commentId; 
+      const { replyId, text } = req.body; 
+      
       // Find the post by its ID
       const post = await Community.findById(id);
       if (!post) {
@@ -244,17 +244,17 @@ const communityController = {
       }
       
       // Find the comment by its ObjectId within the post
-      const comment = post.comments.id(commendId);
+      const comment = post.comments.id(commentId);
       if (!comment) {
         return res.status(404).json({ message: "Comment not found" });
       }
-      console.log(post.comments);
+
       // Find the reply by its ObjectId within the comment's replies array
       const reply = comment.replies.id(replyId);
       if (!reply) {
         return res.status(404).json({ message: "Reply not found" });
       }
-      console.log(reply);
+
       // Update the reply text
       reply.text = text;
 
@@ -272,26 +272,30 @@ const communityController = {
   // Delete a reply
   async deleteReply(req, res) {
     try {
-      const { id, commentId } = req.params;
-      const { replyId } = req.body;
-
-      const post = await Community.findById(id);
+      const { id, commentId } = req.params; // ID of the post and comment
+      const { replyId } = req.body; // ID of the reply to delete
+  
+      const post = await Community.findById(id); // Find the community post
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-
+  
+      // Find the comment by its ID
       const comment = post.comments.id(commentId);
       if (!comment) {
         return res.status(404).json({ message: "Comment not found" });
       }
-
-      comment.replies.id(replyId).remove();
-      await post.save();
+  
+      // Filter out the reply to delete by its ID
+      comment.replies = comment.replies.filter((reply) => reply._id.toString() !== replyId);
+      await post.save(); // Save the updated post
+  
       res.status(200).json({ message: "Reply deleted", post });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  },
+  }
+  ,
 
   // Search posts
   async searchCommunityPosts(req, res) {
