@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "4e028d6c-ebab-4356-966f-7d8754371a2c",
+		"name": "Meditouch_backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30712913"
+	},
+	"item": [
+		{
+			"name": "add post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Post Title\",\n  \"content\": \"Post content\",\n  \"image\": \"<file>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get post",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Post Title\",\n  \"content\": \"Post content\",\n  \"image\": \"<file>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get post by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Post Title\",\n  \"content\": \"Post content\",\n  \"image\": \"<file>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/get/675175d697d639cb04cd8c6d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"get",
+						"675175d697d639cb04cd8c6d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update post",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Updated Title\",\n  \"content\": \"Updated content\",\n  \"image\": \"<file>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/update/675175d697d639cb04cd8c6d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"update",
+						"675175d697d639cb04cd8c6d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "del post",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Updated Title\",\n  \"content\": \"Updated content\",\n  \"image\": \"<file>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/delete/675175d697d639cb04cd8c6d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"delete",
+						"675175d697d639cb04cd8c6d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "like/dislike",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "p5xBzm5vWlni1f9VertqKkdOgUJaQCcX",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user\": \"67536d5ea6ea601f8555bf73\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/community/like/67536c7dea02b17478f4dbed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"community",
+						"like",
+						"67536c7dea02b17478f4dbed"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
