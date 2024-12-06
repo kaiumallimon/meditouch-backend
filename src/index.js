@@ -12,6 +12,8 @@ const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');
 const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes');    
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
+const cartRoutes = require('./features/cart/routes/cart.route');
+
 // configure dotenv
 require('dotenv').config(); 
 
@@ -63,6 +65,10 @@ app.use('/healthtips',healthtipsRoutes);
 // use the comm. feature route
 
 app.use('/community',communityFeatureRoutes);
+
+
+// use the cart route
+app.use('/cart',cartRoutes);
 
 
 
