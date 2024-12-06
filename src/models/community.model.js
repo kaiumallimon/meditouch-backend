@@ -48,16 +48,19 @@ const communitySchema = new mongoose.Schema({
         required: false,
         default: null,
     },
-    reactions: {
-        likes: {
-            type: Number, // Number of likes
-            default: 0,
+    reactions: [
+        {
+          user: {
+            type: String, // User identifier, e.g., user ID or username
+            required: true,
+          },
+          type: {
+            type: String, // 'like' or 'dislike'
+            enum: ['like', 'dislike'],
+            required: true,
+          },
         },
-        dislikes: {
-            type: Number, // Number of dislikes
-            default: 0,
-        },
-    },
+      ],
     comments: [commentSchema], // Array of comments
     createdAt: {
         type: Date,
