@@ -8,31 +8,66 @@ MediTouch is a groundbreaking initiative aimed at transforming healthcare delive
 With an example of auth API (with passport.js):
 ```bash
 meditouch-backend/
-|---node_modules/
-|---src/
-    |---config/
-        |---database.config.js
-    |---features/
-        |---auth/
-            |---controllers/
-                |---auth.controller.js
-            |---routes/
-                |---auth.routes.js
-        |---mail/
-            |---mail.sender.js
-    |---middlewares/
-        |---apikey.middleware.js
-    |---models/
-        |---user.model.js
-    |---utils/
-    |---index.js
-    |---server.js
-
-|---.env
-|---.gitignore
-|---package-lock.json
-|---package.json
-|---README.md
+|-- .env
+|-- .gitignore
+|-- README.md
+|-- api_endpoints_updated_doc
+    |-- Meditouch_backend.postman_collection.json
+|-- package-lock.json
+|-- package.json
+|-- src
+    |-- config
+        |-- database.config.js
+    |-- features
+        |-- apikey
+            |-- controllers
+                |-- apikey.controller.js
+            |-- routes
+                |-- apikey.route.js
+        |-- auth
+            |-- controllers
+                |-- auth.controller.js
+                |-- doctor.auth.controller.js
+            |-- routes
+                |-- auth.routes.js
+                |-- doctor.auth.routes.js
+        |-- cart
+            |-- controllers
+                |-- cart.controller.js
+            |-- routes
+                |-- cart.route.js
+        |-- community
+            |-- controllers
+                |-- community.controller.js
+            |-- routes
+                |-- community.routes.js
+        |-- healthtips
+            |-- controllers
+                |-- healthtips.controller.js
+            |-- routes
+                |-- healthtips.routes.js
+        |-- mail
+            |-- mail.sender.js
+        |-- test
+            |-- controllers
+                |-- test.controller.js
+            |-- routes
+                |-- test.route.js
+    |-- index.js
+    |-- middlewares
+        |-- apikey.middleware.js
+    |-- models
+        |-- apikeys.model.js
+        |-- cart.model.js
+        |-- community.model.js
+        |-- doctor.model.js
+        |-- healthtips.model.js
+        |-- user.model.js
+    |-- server.js
+    |-- utils
+        |-- generate.random.password.js
+        |-- image.upload.js
+|-- uploads
 ```
 
 
