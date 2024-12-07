@@ -3,3 +3,5 @@
 
 # ignore the node_modules directory
 /node_modules
+
+filestructure.txt
