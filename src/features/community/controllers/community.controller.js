@@ -28,6 +28,18 @@ const communityController = {
     }
   },
 
+
+   // Socket.IO: Get all community posts
+   async getCommunityPostsSocket(socket) {
+    try {
+      const posts = await Community.find();
+      socket.emit('community_posts', posts);
+    } catch (error) {
+      console.error('Error fetching posts:', error.message);
+      socket.emit('error', { error: error.message });
+    }
+  },
+
   // Get a specific community post by ID
   async getCommunityPostById(req, res) {
     try {
@@ -89,13 +101,30 @@ const communityController = {
   async likePost(req, res) {
     try {
       const { id } = req.params;
+      const { user } = req.body; // Get user ID or username from the request body
+
       const post = await Community.findById(id);
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      post.reactions.likes += 1;
+
+      // Find if the user has already reacted
+      const existingReaction = post.reactions.find(r => r.user === user);
+
+      if (existingReaction) {
+        if (existingReaction.type === "like") {
+          return res.status(400).json({ message: "User already liked this post" });
+        } else {
+          // Change dislike to like
+          existingReaction.type = "like";
+        }
+      } else {
+        // Add a new like reaction
+        post.reactions.push({ user, type: "like" });
+      }
+
       await post.save();
-      res.status(200).json({ message: "Post liked", post });
+      res.status(200).json({ message: "Post liked successfully", post });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -105,13 +134,30 @@ const communityController = {
   async dislikePost(req, res) {
     try {
       const { id } = req.params;
+      const { user } = req.body; // Get user ID or username from the request body
+
       const post = await Community.findById(id);
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      post.reactions.dislikes += 1;
+
+      // Find if the user has already reacted
+      const existingReaction = post.reactions.find(r => r.user === user);
+
+      if (existingReaction) {
+        if (existingReaction.type === "dislike") {
+          return res.status(400).json({ message: "User already disliked this post" });
+        } else {
+          // Change like to dislike
+          existingReaction.type = "dislike";
+        }
+      } else {
+        // Add a new dislike reaction
+        post.reactions.push({ user, type: "dislike" });
+      }
+
       await post.save();
-      res.status(200).json({ message: "Post disliked", post });
+      res.status(200).json({ message: "Post disliked successfully", post });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -233,16 +279,16 @@ const communityController = {
   async updateReply(req, res) {
     try {
       console.log("Request Parameters:", req.params);
-      const id = req.params.id; 
-      const commentId = req.params.commentId; 
-      const { replyId, text } = req.body; 
-      
+      const id = req.params.id;
+      const commentId = req.params.commentId;
+      const { replyId, text } = req.body;
+
       // Find the post by its ID
       const post = await Community.findById(id);
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-      
+
       // Find the comment by its ObjectId within the post
       const comment = post.comments.id(commentId);
       if (!comment) {
@@ -274,22 +320,22 @@ const communityController = {
     try {
       const { id, commentId } = req.params; // ID of the post and comment
       const { replyId } = req.body; // ID of the reply to delete
-  
+
       const post = await Community.findById(id); // Find the community post
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-  
+
       // Find the comment by its ID
       const comment = post.comments.id(commentId);
       if (!comment) {
         return res.status(404).json({ message: "Comment not found" });
       }
-  
+
       // Filter out the reply to delete by its ID
       comment.replies = comment.replies.filter((reply) => reply._id.toString() !== replyId);
       await post.save(); // Save the updated post
-  
+
       res.status(200).json({ message: "Reply deleted", post });
     } catch (error) {
       res.status(500).json({ error: error.message });
