@@ -1,9 +1,9 @@
 //imports
 const Doctor = require('../../../models/doctor.model');
 const createUpload = require("../../../utils/image.upload");
-const generatePassword = require("../../../utils/generate.random.password");
 const {sendMail, sendPassword} = require('../../../features/mail/mail.sender'); 
 const jwt = require('jsonwebtoken');
+const generatePassword = require("../../../utils/generate.random.password");
 
 exports.register = async (req, res) => {
     try {
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
         }
 
         //generate password
-        const randomPassword = generatePassword();
+        const randomPassword = generatePassword.generateRandomPassword();
 
         // Create a new doctor
         const newDoctor = new Doctor({
