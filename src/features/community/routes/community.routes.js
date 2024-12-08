@@ -26,6 +26,8 @@ router.put("/like/:id",permissionMiddleware('write'),communityController.likePos
 router.put("/dislike/:id",permissionMiddleware('write'),communityController.dislikePost);
 
 //all comment and reply related endpints
+//all commnent by post id
+router.get("/comment/:id",permissionMiddleware('read'),communityController.getComments);
 router.post("/comment/:id",permissionMiddleware('write'),communityController.addComment);
 router.put("/comment/:id",permissionMiddleware('write'),communityController.updateComment);
 router.delete("/comment/:id",permissionMiddleware('write'),communityController.deleteComment);
