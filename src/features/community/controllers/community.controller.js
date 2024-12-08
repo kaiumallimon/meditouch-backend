@@ -1,5 +1,4 @@
 const Community = require("../../../models/community.model"); // Import the community model
-//const mongoose = require('mongoose');  // Import mongoose
 
 const communityController = {
   // Add a new community post
