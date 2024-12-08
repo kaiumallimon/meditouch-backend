@@ -13,6 +13,9 @@ const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
+const doctor = require('./features/telemedicine/routes/doctor.routes');
+
+
 
 // configure dotenv
 require('dotenv').config(); 
@@ -56,6 +59,10 @@ app.use('/auth',authRoutes);
 // use the doctor auth route
 
 app.use('/auth/doctor',doctorAuthRoutes);
+
+// use the telemedicine route
+
+app.use('/telemedicine',doctor);
 
 
 // use the healthtips route
