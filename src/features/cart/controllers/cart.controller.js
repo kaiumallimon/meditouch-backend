@@ -1,8 +1,7 @@
-// imports
+// Imports
 const Cart = require("../../../models/cart.model");
 
-
-// addToCart controller
+// Add to Cart Controller
 exports.addToCart = async (req, res) => {
     const { userId, medicine } = req.body;
 
@@ -35,17 +34,17 @@ exports.addToCart = async (req, res) => {
 
         // Save the updated cart
         const updatedCart = await cart.save();
-        res.status(200).json({ message: "Cart updated successfully", cart: updatedCart });
+        res.status(200).json({
+            message: "Cart updated successfully",
+            cart: updatedCart
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: error });
+        res.status(500).json({ message: error.message });
     }
 };
 
-
-
-// get cart by user ID controller
-
+// Get Cart by User ID Controller (fetch all cart items)
 exports.getCartByUserId = async (req, res) => {
     try {
         const userId = req.params.userId;
@@ -54,14 +53,46 @@ exports.getCartByUserId = async (req, res) => {
             return res.status(400).json({ message: "User ID is required" });
         }
 
-        const cart = await Cart.findOne({ user: userId });
+        // Get all cart documents for the user
+        const carts = await Cart.find({ user: userId });
 
-        if (!cart) {
-            return res.status(404).json({ message: "No cart found for this user" });
+        if (!carts || carts.length === 0) {
+            return res.status(404).json({ message: "No carts found for this user" });
         }
 
-        res.status(200).json(cart);
+        res.status(200).json({
+            message: "Carts retrieved successfully",
+            carts: carts
+        });
     } catch (error) {
-        res.status(500).json({ message: error });
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
+
+// Remove a specific medicine from the cart
+exports.removeMedicineFromCart = async (req, res) => {
+    try {
+        const { userId, medicineId } = req.params;
+
+        if (!userId || !medicineId) {
+            return res.status(400).json({ message: "User ID and Medicine ID are required" });
+        }
+
+        // Find the user's cart and remove the medicine by its id
+        const updatedCart = await Cart.findOneAndUpdate(
+            { user: userId },
+            { $pull: { medicines: { id: medicineId } } }, // Removes the medicine with the specific id
+            { new: true } // Return the updated cart
+        );
+
+        if (!updatedCart) {
+            return res.status(404).json({ message: "Cart not found for this user" });
+        }
+
+        res.status(200).json({ message: "Medicine removed from cart successfully", cart: updatedCart });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
