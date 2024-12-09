@@ -1,6 +1,6 @@
 const Nurse = require("../../../models/nurse.model");
 const createUpload = require("../../../utils/image.upload");
-const { sendMail, sendPassword } = require('../../../features/mail/mail.sender');
+const { sendMail, sendPassword, sendVerificationCode } = require('../../../features/mail/mail.sender');
 const jwt = require('jsonwebtoken');
 const generatePassword = require("../../../utils/generate.random.password");
 
@@ -147,5 +147,32 @@ exports.resetPassword = async (req, res) => {
         res.status(200).json({ message: 'Password reset successful' });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+};
+
+
+// Send Verification Code
+exports.sendVerification = async (req, res) => {
+    const { code, email } = req.body;
+
+    if (!code || !email) {
+        return res.status(400).json({
+            success: false,
+            message: 'Both email and verification code are required.',
+        });
+    }
+
+    try {
+        await sendVerificationCode(code, email);
+
+        res.status(200).json({
+            success: true,
+            message: 'Verification code sent successfully.',
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to send verification code. Please try again later.',
+        });
     }
 };
