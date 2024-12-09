@@ -22,7 +22,6 @@ const nurseSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: [true, 'Phone number is required'],
-    match: [/^\d{10,15}$/, 'Please enter a valid phone number'], 
   },
   address: {
     type: String,
@@ -87,7 +86,7 @@ const nurseSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: [true, 'Image URL is required'],
+    default: 'https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg',
     match: [/^https?:\/\/.+\.(jpg|jpeg|png|webp)$/, 'Please enter a valid image URL'],
   },
   reviews: {
