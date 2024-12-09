@@ -14,9 +14,8 @@ const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
+const ordersRoutes = require('./features/orders/routes/orders.route');
 const doctor = require('./features/telemedicine/routes/doctor.routes');
-
-
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -46,7 +45,6 @@ connectDB();
 // Serve static files
 app.use('/uploads', express.static('uploads'));
 
-
 // use the api key route
 
 app.use('/core/security/apikey',apikeyRoutes);
@@ -75,6 +73,7 @@ app.use('/community',communityFeatureRoutes);
 
 // use the cart route
 app.use('/cart',cartRoutes);
+app.use('/epharmacy/orders',ordersRoutes);
 
 
 // Create HTTP server and attach Socket.IO
