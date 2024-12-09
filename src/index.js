@@ -1,15 +1,16 @@
-//imports
+// Required imports
 const express = require('express');
+const http = require('http'); // Import HTTP to work with Socket.IO
 const app = require('./server');
-const testRoute = require('./features/test/routes/test.route'); 
+const testRoute = require('./features/test/routes/test.route');
 
 const session = require('express-session');
 const connectDB = require('./config/database.config');
 
-// All the routes
-const authRoutes = require('./features/auth/routes/auth.routes');   
+// Import routes
+const authRoutes = require('./features/auth/routes/auth.routes');
 const doctorAuthRoutes = require('./features/auth/routes/doctor.auth.routes');
-const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes');    
+const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes');
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
@@ -17,34 +18,32 @@ const doctor = require('./features/telemedicine/routes/doctor.routes');
 
 
 
-// configure dotenv
-require('dotenv').config(); 
+// Import socket config
+const { initializeSocket } = require('./config/socket.config');
 
-// get port
+// Configure dotenv
+require('dotenv').config();
+
+// Get port
 const PORT = process.env.PORT || 3000;
 
-//middleware
+// Middleware
 app.use(express.json());
+app.use('/test', testRoute);
 
-// use the test route
-app.use('/test',testRoute);
-
-
-// use session
-app.use(session({
+// Use session
+app.use(
+  session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
-}))
+    saveUninitialized: false,
+  })
+);
 
-
-
-
-// connect to the database
+// Connect to the database
 connectDB();
 
-// serve static files
-
+// Serve static files
 app.use('/uploads', express.static('uploads'));
 
 
@@ -78,9 +77,11 @@ app.use('/community',communityFeatureRoutes);
 app.use('/cart',cartRoutes);
 
 
+// Create HTTP server and attach Socket.IO
+const server = http.createServer(app);
+initializeSocket(server);
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
-

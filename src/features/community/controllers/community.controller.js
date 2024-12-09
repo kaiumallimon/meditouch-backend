@@ -27,6 +27,18 @@ const communityController = {
     }
   },
 
+
+   // Socket.IO: Get all community posts
+   async getCommunityPostsSocket(socket) {
+    try {
+      const posts = await Community.find();
+      socket.emit('community_posts', posts);
+    } catch (error) {
+      console.error('Error fetching posts:', error.message);
+      socket.emit('error', { error: error.message });
+    }
+  },
+
   // Get a specific community post by ID
   async getCommunityPostById(req, res) {
     try {
