@@ -131,3 +131,21 @@ exports.getNurses = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+    try {
+        const nurse = await Nurse.findById(req.params.id);
+        if (!nurse) {
+            return res.status(404).json({ message: 'Nurse not found' });
+        }
+
+        nurse.password = req.body.password; // Set new password
+        await nurse.save();
+
+        res.status(200).json({ message: 'Password reset successful' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
