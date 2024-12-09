@@ -14,6 +14,7 @@ const healthtipsRoutes = require('./features/healthtips/routes/healthtips.routes
 const communityFeatureRoutes = require('./features/community/routes/community.routes');
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
+const ordersRoutes = require('./features/orders/routes/orders.route');
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -50,6 +51,7 @@ app.use('/auth/doctor', doctorAuthRoutes);
 app.use('/healthtips', healthtipsRoutes);
 app.use('/community', communityFeatureRoutes);
 app.use('/cart', cartRoutes);
+app.use('/epharmacy/orders',ordersRoutes);
 
 
 // Create HTTP server and attach Socket.IO
