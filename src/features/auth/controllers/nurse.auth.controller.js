@@ -63,3 +63,41 @@ exports.register = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+// controller to login a nurse:
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Find the nurse by email
+        const nurse = await Nurse.findOne({ email });
+        if (!nurse) {
+            return res.status(400).json({ message: 'No nurse found with that email' });
+        }
+
+        // Check if password matches
+        const isMatch = await nurse.matchPassword(password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Incorrect password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { nurseId: nurse._id, email: nurse.email },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        nurse.password = undefined; // Exclude password in response
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Login successful',
+            token,
+            nurse,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
