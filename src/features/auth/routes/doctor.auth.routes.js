@@ -14,7 +14,7 @@ const upload = createUpload();  // Define the path for image storage
 router.post('/register',permissionMiddleware('write'), upload.single('image'), authController.register);  
 router.post('/login',permissionMiddleware('read'), authController.login);
 router.get('/doctors',permissionMiddleware('read'), authController.getDoctors);
-router.post('/send-verification-email',permissionMiddleware('read'), authController.sendVerificationCode);  
+router.post('/send-verification-email',permissionMiddleware('read'), authController.sendVerification);  
 router.post('/reset-password/:id',permissionMiddleware('write'), authController.resetPassword);
 router.get('/check-email/',permissionMiddleware('read'), authController.checkEmail);
 
