@@ -1,7 +1,7 @@
 //imports
 const Doctor = require('../../../models/doctor.model');
 const createUpload = require("../../../utils/image.upload");
-const {sendMail, sendPassword} = require('../../../features/mail/mail.sender'); 
+const {sendMail, sendPassword, sendVerificationCode} = require('../../../features/mail/mail.sender'); 
 const jwt = require('jsonwebtoken');
 const generatePassword = require("../../../utils/generate.random.password");
 
@@ -167,7 +167,7 @@ exports.resetPassword = async (req, res) => {
  * @param {Object} res - Express response object.
  * @returns {void}
  */
-exports.sendVerificationCode = async (req, res) => {
+exports.sendVerification = async (req, res) => {
     const { code, email } = req.body;
 
     // Validate input
