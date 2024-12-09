@@ -16,6 +16,7 @@ const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
 const ordersRoutes = require('./features/orders/routes/orders.route');
 const doctor = require('./features/telemedicine/routes/doctor.routes');
+const nurseRoute = require('./features/auth/routes/nurse.auth.routes')
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -74,6 +75,10 @@ app.use('/community',communityFeatureRoutes);
 // use the cart route
 app.use('/cart',cartRoutes);
 app.use('/epharmacy/orders',ordersRoutes);
+
+
+// use the nurse route
+app.use('/auth/nurse',nurseRoute);
 
 
 // Create HTTP server and attach Socket.IO
