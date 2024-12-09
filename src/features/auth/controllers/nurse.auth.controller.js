@@ -101,3 +101,33 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+// Get All Nurses
+exports.getNurses = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+
+        const skip = (page - 1) * limit;
+
+        const nurses = await Nurse.find().skip(skip).limit(limit);
+
+        // Remove password from response
+        nurses.forEach(nurse => {
+            nurse.password = undefined;
+        });
+
+        const totalNurses = await Nurse.countDocuments();
+
+        res.status(200).json({
+            status: 'success',
+            currentPage: page,
+            totalPages: Math.ceil(totalNurses / limit),
+            totalNurses,
+            nurses,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
