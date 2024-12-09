@@ -1,5 +1,5 @@
 const express = require("express");
-const doctorController = require("../controllers/doctor.Controller");
+const doctorController = require("../controllers/doctor.controller");
 const createUpload = require("../../../utils/image.upload");
 const permissionMiddleware = require("../../../middlewares/apikey.middleware");
 const router = express.Router();
