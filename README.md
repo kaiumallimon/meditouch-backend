@@ -10,11 +10,9 @@ With an example of auth API (with passport.js):
 meditouch-backend/
 |-- .env
 |-- .gitignore
-|-- README.md
-|-- api_endpoints_updated_doc
-    |-- Meditouch_backend.postman_collection.json
 |-- package-lock.json
 |-- package.json
+|-- README.md
 |-- src
     |-- config
         |-- database.config.js
@@ -48,6 +46,11 @@ meditouch-backend/
                 |-- healthtips.routes.js
         |-- mail
             |-- mail.sender.js
+        |-- telemedicine
+            |-- controllers
+                |-- doctor.controller.js
+            |-- routes
+                |-- doctor.routes.js
         |-- test
             |-- controllers
                 |-- test.controller.js
@@ -67,7 +70,9 @@ meditouch-backend/
     |-- utils
         |-- generate.random.password.js
         |-- image.upload.js
+|-- tasklist.md
 |-- uploads
+
 ```
 
 
