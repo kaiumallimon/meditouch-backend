@@ -15,6 +15,7 @@ const communityFeatureRoutes = require('./features/community/routes/community.ro
 const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
 const ordersRoutes = require('./features/orders/routes/orders.route');
+const doctor = require('./features/telemedicine/routes/doctor.routes');
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -44,13 +45,34 @@ connectDB();
 // Serve static files
 app.use('/uploads', express.static('uploads'));
 
-// Use routes
-app.use('/core/security/apikey', apikeyRoutes);
-app.use('/auth', authRoutes);
-app.use('/auth/doctor', doctorAuthRoutes);
-app.use('/healthtips', healthtipsRoutes);
-app.use('/community', communityFeatureRoutes);
-app.use('/cart', cartRoutes);
+// use the api key route
+
+app.use('/core/security/apikey',apikeyRoutes);
+
+// use the auth routes
+app.use('/auth',authRoutes);
+
+
+// use the doctor auth route
+
+app.use('/auth/doctor',doctorAuthRoutes);
+
+// use the telemedicine route
+
+app.use('/telemedicine',doctor);
+
+
+// use the healthtips route
+app.use('/healthtips',healthtipsRoutes);
+
+
+// use the comm. feature route
+
+app.use('/community',communityFeatureRoutes);
+
+
+// use the cart route
+app.use('/cart',cartRoutes);
 app.use('/epharmacy/orders',ordersRoutes);
 
 

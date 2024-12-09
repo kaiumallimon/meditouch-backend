@@ -1,5 +1,4 @@
 const Community = require("../../../models/community.model"); // Import the community model
-//const mongoose = require('mongoose');  // Import mongoose
 
 const communityController = {
   // Add a new community post
@@ -163,13 +162,35 @@ const communityController = {
     }
   },
 
+  //get all comments by post id 
+  async getComments(req, res) {
+    try {
+      const { id } = req.params; // Post ID from the URL
+  
+      // Find the post by its ID
+      const post = await Community.findById(id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+  
+      // Retrieve the comments for the post
+      const comments = post.comments;
+  
+      res.status(200).json({ message: "Comments retrieved successfully", comments });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  
+
+
   // Add a comment
   async addComment(req, res) {
     try {
       const { id } = req.params;
       const { user, text } = req.body;
 
-      const post = await Community.findByIdan(id);
+      const post = await Community.findById(id);
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }

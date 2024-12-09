@@ -35,7 +35,8 @@ const doctorSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: true
+        required: false,
+        default: null
     },
     licenceId: {
         type: String,
@@ -83,14 +84,37 @@ const doctorSchema = new mongoose.Schema({
         default: [], // Default to an empty array
     },
 
-    timeSlots: {
-        type: [String],
-        required: false,
-        default: []
+    all_timeslots: {
+        type: [
+            {
+                date: {
+                    type: String, // Keeping as String for flexibility (can parse as needed)
+                    required: true,
+                },
+                intervals: {
+                    type: [
+                        {
+                            start: {
+                                type: String, // Using String for time values
+                                required: true,
+                            },
+                            end: {
+                                type: String,
+                                required: true,
+                            },
+                        },
+                    ],
+                    default: [], // Default to an empty array
+                },
+                timePerInterval: {
+                    type: Number,
+                    required: true,
+                },
+            },
+        ],
+        default: [], // Default to an empty array
     },
-
-
-}, {
+},{
     collection: 'doctors',
 })
 
