@@ -174,5 +174,19 @@ exports.sendVerification = async (req, res) => {
             success: false,
             message: 'Failed to send verification code. Please try again later.',
         });
+  
+    }
+};
+
+// Check if Nurse exists
+exports.checkEmail = async (req, res) => {
+    try {
+        const nurse = await Nurse.findOne({ email: req.body.email });
+        if (!nurse) {
+            return res.status(404).json({ message: 'Nurse not found' });
+        }
+        res.status(200).json({ message: 'Nurse found' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
