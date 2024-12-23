@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { processQuery } = require('../controller/chatbot.controller');
+const { runFlowController } = require('../controller/chatbot.controller');
 
 // Rename the endpoint to `/callchat`
-router.post('/callchat', processQuery);
+router.post('/callchat', runFlowController);
 
 module.exports = router;
