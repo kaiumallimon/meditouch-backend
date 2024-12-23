@@ -1,5 +1,6 @@
 // Import required modules
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
+require("dotenv").config(); // Load environment variables from .env file
 
 // Define the controller function
 exports.processQuery = async (req, res) => {
@@ -11,11 +12,11 @@ exports.processQuery = async (req, res) => {
     }
 
     // Prepare the API URL and headers
-    const apiUrl = "https://arnobbot-langflow-testbot.hf.space/api/v1/run/de4ef838-7fa6-4b19-b668-0bd8d206ef6c?stream=false";
+    const apiUrl = process.env.API_URL;
     const headers = {
-      "Authorization": "Bearer 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",
+      Authorization: `Bearer ${process.env.BEARER_TOKEN}`,
       "Content-Type": "application/json",
-      "x-api-key": "sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I",
+      "x-api-key": process.env.X_API_KEY,
     };
 
     // Prepare the request body
