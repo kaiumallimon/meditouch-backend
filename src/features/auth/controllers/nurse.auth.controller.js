@@ -3,7 +3,7 @@ const createUpload = require("../../../utils/image.upload");
 const { sendMail, sendPassword, sendVerificationCode } = require('../../../features/mail/mail.sender');
 const jwt = require('jsonwebtoken');
 const generatePassword = require("../../../utils/generate.random.password");
-
+const gdriveUtil = require("./../../../utils/gdrive/gdrive.util");
 
 // controller to register a nurse:
 
@@ -19,9 +19,13 @@ exports.register = async (req, res) => {
 
         // Handle image upload
         let imageUrl = null;
-        if (req.file) {
-            const serverBaseUrl = `${req.protocol}://${req.get("host")}`;
-            imageUrl = `${serverBaseUrl}/uploads/${req.file.filename}`;
+
+
+        const file = req.files[0];
+
+        // If an image is uploaded, upload it to gdrive
+        if (file) {
+            imageUrl = await gdriveUtil.uploadFile(file);
         }
 
         // Generate random password
@@ -40,7 +44,7 @@ exports.register = async (req, res) => {
             education,
             experience,
             chargePerVisit,
-            image: imageUrl === null ? "https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg" : imageUrl,
+            image: imageUrl 
         });
 
         // Save the new nurse
