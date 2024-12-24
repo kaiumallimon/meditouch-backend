@@ -127,15 +127,34 @@ nodemon src/index.js
 Don't Forget to create a `.env` file with this format:
 
 ```bash
-DB_URL=your_mongodb_url
+DB_URL=mongodb+srv://kaiumallimon:e2B1tUqAZ0IBSRCN@meditouch-backend.ogsmo.mongodb.net/meditouch?retryWrites=true
 PORT=3000
-SESSION_SECRET=your_complex_session_secret
-JWT_SECRET=your_jwt_secret
-EMAIL=your_email_for_smtp
-EMAIL_PASSWORD=generated_app_security_code
-X_API_KEY=api_key
-GOOGLE_SERVICE_ACCOUNT = '{....Google service account credentials (key-value pair format)}'
-GDRIVE_FOLDER_ID= google_drive_folder_id
+SESSION_SECRET=IUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCO	
+JWT_SECRET = IUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCO	
+EMAIL= meditouch.bcrypt@gmail.com
+EMAIL_PASSWORD= gfhwoutfhcmkaukn
+X_API_KEY= p5xBzm5vWlni1f9VertqKkdOgUJaQCcX
+
+
+## Google service account
+GOOGLE_SERVICE_ACCOUNT = '{
+  "type": "service_account",
+  "project_id": "meditouch-backend",
+  "private_key_id": "5b03fa195077b98d00e34bd9885166a1cbeab101",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCW3HkU59Bz6/BI\nIf9JpGTr6INJ64KKSc2ipNYlXHyDo0e7nc1LcRwOJDvscbddKzwrWDYaP/6fsYYO\nZhpXhYk7IubWHap+IK5xqCZYG8F+SSVr1EJ4mSczlalr1QnzWutbdwAtTO4hk2ap\nEL/2o25X8NBdKa8m5somc/qZA/MpBgF6zRC+SS1lJINzZZBgb5LNj+lwzwO95CUS\nKzrAa9f1SLFwObzD3nNmP1wpz21NWlz8T2Q4wWTnFPu6ECc3riPIKORQzLm+EocU\nOSHuaya2TsbHUGEoyqA+FM1xJzUf0vJNqV9WKmCbMTeLlQRHS7uVPRDgqKzQFgi4\nVwKC1N6hAgMBAAECggEABn1plWVQ6bZmrykMlcXFXwNbp9xtJeHS6izz1sZJx6fz\nOAur1JOtxKCjwKI2ZIMC+E0NLB1AqOy20FEYJQJmSu2kxzqeJlrlkOzOPtAYMi9C\nCtzQweYPclVSj9mpr0G5X5qY9ASb4e84uraGa5J69rwyBS/74aKKuRNtiROgbE1N\nmMQgM8zpyq1igM+jmxziyq1PkK8YUSihdg6ACumHoDNVDBvZ/7tlDXY5CbosW6uu\nJ9R5q0bosb5Zh0hpwI23hRNf/6Tse6V0X4BR3b64lmYoZaGdvC6Nl1gzmLGo4LgI\nAicwaGCj4V/fAWsS8lE2UvkKMvuIkyVDpKr40/6imQKBgQDG6D8zK3AqoxoLoxuS\nlznjuOCaIvWqKl2B3bYjYhemhRhrHppm1vxifdI34jgMEfCLiv1ji9Lf3j2o4de1\nhKBH3wDTsChMm2U5LoBHRiW6kkZkJKKYvJLe+FNUVePHZUG8Bjh0uawW2k6kNCwZ\no4YA1V8Qo8LEBK5XWfEFLmvxOwKBgQDCKctXUKSQgZYDgl5LBSeWiyQuArn2dVqx\nnDeEzrg1J8NSDYAHkjJx7WU6E5p1lfgmejjdpgnxwW/Qup/dLmky4yST1YaxPtTF\nXbLrLWS/whS4+gde7fo2S3b9p/PN4jH8ZDUOuqpVb22mK/BcA/J3epzw669odeJy\nDlDoqQZx0wKBgQCIaas+WqIYe7dXF8vHIzOue5J940/8HgX3FKjfZ1y09T6j6F8X\n/IUmvwe3D8xEauE/sljJNpGuuuoqsoiPkp+h6szUYVGiCEjJiJytROyHId5ou79P\nZLSNel0bz7Phgg4s908srlHZcmrQrn84Li+uzqbd8JGYgWVXvvVPCmE5FQKBgQCL\nyWlDGKUSAKnPJvnaCwEAanaGxaG65ayA+JYkAGwwoMsHdP669K9qxF4/nMN0ap84\nnH/6W8MHEZv9646SwAou/8diw7TwQOsQmS/qD0lcoU8oCaJq3uxoUJZ/cn6duH8C\nVea5Dvz4+3s2yqWGqbTT/iulbBliHJUGRnZLuv0PzwKBgQCnBbn08kPabVHzDkPX\nPQfVlBM/Ye6vQE1Y1gIas38oiN8/Js8sGPzo+EbCdkGJRv/tiNchhzxJNgegMfBv\nD5pJJjbhbFFzKlYrSUSHPEtQqCCxj5jpX6uKCN56rEJxaUfoUxlLPqCcSid1YIBr\nhOBNm50j7hYlg3xBkpJb7Dq+Zw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "meditouch@meditouch-backend.iam.gserviceaccount.com",
+  "client_id": "113182593851224257702",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/meditouch%40meditouch-backend.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}'
+
+
+
+## gdrive folder id
+GDRIVE_FOLDER_ID = 1RJOgnfJCMKshKTZwng5d1sM09Eh1rrni
 
 ```
 
