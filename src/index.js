@@ -16,6 +16,7 @@ const apikeyRoutes = require('./features/apikey/routes/apikey.route');
 const cartRoutes = require('./features/cart/routes/cart.route');
 const ordersRoutes = require('./features/orders/routes/orders.route');
 const doctor = require('./features/telemedicine/routes/doctor.routes');
+const chatbotRoutes = require('./features/Chatbot/routes/chatbot.routes');
 const nurseRoute = require('./features/auth/routes/nurse.auth.routes')
 const gdiveRoutes = require('./features/gdrive/routes/gdrive.routes');
 
@@ -88,6 +89,11 @@ app.use('/auth/nurse',nurseRoute);
 
 // use the gdrive route
 app.use('/gdrive',gdiveRoutes);
+
+
+// For Meditouch RAG API
+app.use('/cb', chatbotRoutes);
+
 
 
 // Create HTTP server and attach Socket.IO
