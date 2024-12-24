@@ -151,7 +151,12 @@ GOOGLE_SERVICE_ACCOUNT = '{
   "universe_domain": "googleapis.com"
 }'
 
+API_URL=https://arnobbot-langflow-testbot.hf.space/api/v1/run/de4ef838-7fa6-4b19-b668-0bd8d206ef6c?stream=false
+BEARER_TOKEN=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
+X_API_KEY=sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I
 
+Datastex_application_token = AstraCS:qNWdweGZzZrUgimZutpePzOS:e90709edfd3580ffddbbbab05761d268f34ae074e5c7f36f41478554ca1018a4
+Datastex_application_URL = https://api.langflow.astra.datastax.com
 
 ## gdrive folder id
 GDRIVE_FOLDER_ID = 1RJOgnfJCMKshKTZwng5d1sM09Eh1rrni
@@ -172,6 +177,7 @@ Include the middleware in the router with necessary permission:
 ```bash
 router.get('/api-endpoint', middleware('read'), controller);
 ```
+
 
 ### Author
 1. [Kaium Al Limon](https://github.com/kaiumallimon)  
