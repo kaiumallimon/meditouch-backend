@@ -1,13 +1,24 @@
 const Community = require("../../../models/community.model"); // Import the community model
+const gDriveUtil = require("./../../../utils/gdrive/gdrive.util");
 
 const communityController = {
   // Add a new community post
   async addCommunityPosts(req, res) {
     try {
       const { title, content } = req.body;
-      const image = req.file ? req.file.path : null; // Handle image upload
+      
+      
+      let imageUrl = null;
 
-      const newPost = new Community({ title, content, image });
+
+      const file = req.files[0];
+
+      // If an image is uploaded, upload it to gdrive
+      if (file) {
+        imageUrl = await gDriveUtil.uploadFile(file);
+      }
+
+      const newPost = new Community({ title, content, image:imageUrl });
       await newPost.save();
       res
         .status(201)
@@ -27,9 +38,8 @@ const communityController = {
     }
   },
 
-
-   // Socket.IO: Get all community posts
-   async getCommunityPostsSocket(socket) {
+  // Socket.IO: Get all community posts
+  async getCommunityPostsSocket(socket) {
     try {
       const posts = await Community.find();
       socket.emit('community_posts', posts);
@@ -58,11 +68,20 @@ const communityController = {
     try {
       const { id } = req.params;
       const { title, content } = req.body;
-      const image = req.file ? req.file.path : null;
+      
+      let imageUrl = null;
+
+
+      const file = req.files[0];
+
+      // If an image is uploaded, upload it to gdrive
+      if (file) {
+        imageUrl = await gDriveUtil.uploadFile(file);
+      }
 
       const updatedPost = await Community.findByIdAndUpdate(
         id,
-        { title, content, image },
+        { title, content, image: imageUrl },
         { new: true }
       );
       if (!updatedPost) {
@@ -166,22 +185,22 @@ const communityController = {
   async getComments(req, res) {
     try {
       const { id } = req.params; // Post ID from the URL
-  
+
       // Find the post by its ID
       const post = await Community.findById(id);
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
       }
-  
+
       // Retrieve the comments for the post
       const comments = post.comments;
-  
+
       res.status(200).json({ message: "Comments retrieved successfully", comments });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
-  
+
 
 
   // Add a comment
