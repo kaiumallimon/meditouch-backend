@@ -134,6 +134,9 @@ JWT_SECRET=your_jwt_secret
 EMAIL=your_email_for_smtp
 EMAIL_PASSWORD=generated_app_security_code
 X_API_KEY=api_key
+GOOGLE_SERVICE_ACCOUNT = '{....Google service account credentials (key-value pair format)}'
+GDRIVE_FOLDER_ID= google_drive_folder_id
+
 ```
 
 ### Api validation with api keys
