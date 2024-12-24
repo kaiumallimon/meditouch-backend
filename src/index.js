@@ -44,6 +44,12 @@ app.use(
 // Connect to the database
 connectDB();
 
+
+// show a default message for the root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the MediTouch API');
+});
+
 // Serve static files
 app.use('/uploads', express.static('uploads'));
 
