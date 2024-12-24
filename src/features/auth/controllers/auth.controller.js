@@ -1,7 +1,8 @@
 //imports
 const jwt = require('jsonwebtoken');
 const User = require('../../../models/user.model');
-const {sendMail,sendPassword,sendVerificationCode} = require('../../../features/mail/mail.sender');
+const { sendMail, sendPassword, sendVerificationCode } = require('../../../features/mail/mail.sender');
+const gdriveUtil = require('./../../../utils/gdrive/gdrive.util')
 
 exports.register = async (req, res) => {
     try {
@@ -14,12 +15,23 @@ exports.register = async (req, res) => {
             return res.status(400).json({ message: "User already exists" });
         }
 
-        // If no user exists, check if an image is uploaded
+        /*
+        * New method to upload image to gdrive
+        */
+
         let imageUrl = null;
-        if (req.file) {
-            const serverBaseUrl = `${req.protocol}://${req.get("host")}`;
-            imageUrl = `${serverBaseUrl}/uploads/${req.file.filename}`;  // Make sure this matches the static path
+
+
+        const file = req.files[0];
+
+        // If an image is uploaded, upload it to gdrive
+        if (file) {
+            imageUrl = await gdriveUtil.uploadFile(file);
         }
+
+        /*
+         *End of new method to upload image to gdrive 
+        */
 
         // Create a new user
         const newUser = new User({

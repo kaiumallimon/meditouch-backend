@@ -1,16 +1,23 @@
 //imports
 const healthtipsModel = require('../../../models/healthtips.model');
 
+const gdriveUtil = require('./../../../utils/gdrive/gdrive.util')
+
 // healthtips.controller.js: addHealthTip
 
 exports.addHealthTip = async (req, res) => {
     try {
         const { title, author, body } = req.body;
 
+        // If no user exists, check if an image is uploaded
         let imageUrl = null;
-        if (req.file) {
-            const serverBaseUrl = `${req.protocol}://${req.get("host")}`;
-            imageUrl = `${serverBaseUrl}/uploads/${req.file.filename}`;  // Make sure this matches the static path
+
+
+        const file = req.files[0];
+
+        // If an image is uploaded, upload it to gdrive
+        if (file) {
+            imageUrl = await gdriveUtil.uploadFile(file);
         }
 
         const newTip = new healthtipsModel({

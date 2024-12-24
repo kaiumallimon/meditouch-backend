@@ -4,10 +4,10 @@ const createUpload = require("../../../utils/image.upload");
 const {sendMail, sendPassword, sendVerificationCode} = require('../../../features/mail/mail.sender'); 
 const jwt = require('jsonwebtoken');
 const generatePassword = require("../../../utils/generate.random.password");
+const gdriveUtil = require('./../../../utils/gdrive/gdrive.util')
 
 exports.register = async (req, res) => {
     try {
-        console.log(req.file); // Debugging the file
 
         const { name, email, phone, gender, dob, district, image, licenceId, speciality, experience, visitingFee, reviews, education, timeSlots } = req.body;
 
@@ -19,9 +19,13 @@ exports.register = async (req, res) => {
 
         // If no doctor exists, check if an image is uploaded
         let imageUrl = null;
-        if (req.file) {
-            const serverBaseUrl = `${req.protocol}://${req.get("host")}`;
-            imageUrl = `${serverBaseUrl}/uploads/${req.file.filename}`;  // Make sure this matches the static path
+
+
+        const file = req.files[0];
+
+        // If an image is uploaded, upload it to gdrive
+        if (file) {
+            imageUrl = await gdriveUtil.uploadFile(file);
         }
 
         //generate password
