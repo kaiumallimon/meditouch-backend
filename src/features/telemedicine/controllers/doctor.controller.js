@@ -25,54 +25,54 @@ const doctorController = {
     }
   },
 
-  // Update a doctor's information
-  async updateDoctor(req, res) {
-    try {
-      const { id } = req.params;
-      const {
-        name,
-        email,
-        phone,
-        gender,
-        dob,
-        district,
-        licenceId,
-        speciality,
-        visitingFee,
-        education,
-      } = req.body;
-      const image = req.file ? req.file.path : null;
+  // // Update a doctor's information
+  // async updateDoctor(req, res) {
+  //   try {
+  //     const { id } = req.params;
+  //     const {
+  //       name,
+  //       email,
+  //       phone,
+  //       gender,
+  //       dob,
+  //       district,
+  //       licenceId,
+  //       speciality,
+  //       visitingFee,
+  //       education,
+  //     } = req.body;
+  //     const image = req.file ? req.file.path : null;
 
-      const updatedDoctor = await Doctor.findByIdAndUpdate(
-        id,
-        {
-          name,
-          email,
-          phone,
-          gender,
-          dob,
-          district,
-          image,
-          licenceId,
-          speciality,
-          visitingFee,
-          education,
-        },
-        { new: true }
-      );
+  //     const updatedDoctor = await Doctor.findByIdAndUpdate(
+  //       id,
+  //       {
+  //         name,
+  //         email,
+  //         phone,
+  //         gender,
+  //         dob,
+  //         district,
+  //         image,
+  //         licenceId,
+  //         speciality,
+  //         visitingFee,
+  //         education,
+  //       },
+  //       { new: true }
+  //     );
 
-      if (!updatedDoctor) {
-        return res.status(404).json({ message: "Doctor not found" });
-      }
+  //     if (!updatedDoctor) {
+  //       return res.status(404).json({ message: "Doctor not found" });
+  //     }
 
-      res.status(200).json({
-        message: "Doctor updated successfully",
-        doctor: updatedDoctor,
-      });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
+  //     res.status(200).json({
+  //       message: "Doctor updated successfully",
+  //       doctor: updatedDoctor,
+  //     });
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // },
 
   // Delete a doctor
   async deleteDoctor(req, res) {
