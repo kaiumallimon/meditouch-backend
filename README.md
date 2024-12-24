@@ -173,6 +173,17 @@ Include the middleware in the router with necessary permission:
 router.get('/api-endpoint', middleware('read'), controller);
 ```
 
+
+.env 
+```bash
+API_URL=https://arnobbot-langflow-testbot.hf.space/api/v1/run/de4ef838-7fa6-4b19-b668-0bd8d206ef6c?stream=false
+BEARER_TOKEN=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
+X_API_KEY=sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I
+
+Datastex_application_token = AstraCS:qNWdweGZzZrUgimZutpePzOS:e90709edfd3580ffddbbbab05761d268f34ae074e5c7f36f41478554ca1018a4
+Datastex_application_URL = https://api.langflow.astra.datastax.com
+```
+
 ### Author
 1. [Kaium Al Limon](https://github.com/kaiumallimon)  
 2. [Kamrul Islam Arnob](https://github.com/KamrulIslamArnob)
