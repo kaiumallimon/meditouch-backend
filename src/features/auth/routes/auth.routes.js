@@ -1,17 +1,19 @@
 // imports
 const express = require('express');
 const authController = require('../controllers/auth.controller');
-const createUpload = require('../../../utils/image.upload');  // Import createUpload
 const permissionMiddleware = require('../../../middlewares/apikey.middleware');
+const multer = require('multer');
 const router = express.Router();
 
 
-// Set up multer upload instance with the path where images will be saved
-const upload = createUpload();  // Define the path for image storage
+/*
+* New method to upload image to gdrive
+*/
+const upload = multer();
 
-// Define the routes
+// use upload.any() to upload image and get the first image from the array in the controller...
 
-router.post('/register', permissionMiddleware('write'), upload.single('profileImage'), authController.register);
+router.post('/register', permissionMiddleware('write'), upload.any(), authController.register);
 router.post('/login', permissionMiddleware('read'), authController.login);
 router.get('/users', permissionMiddleware('read'), authController.getUsers);
 router.get('/user/:id', permissionMiddleware('read'), authController.getUserById);
