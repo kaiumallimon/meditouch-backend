@@ -11,12 +11,11 @@ exports.testDrive = async (req, res) => {
             return res.status(400).json({ message: "No file provided" });
         }
 
-        const {fileName, fileUrl} = await gdriveUtils.uploadFile(file); 
+        const fileUrl = await gdriveUtils.uploadFile(file); 
 
         // Return success response
         res.status(200).json({
             message: "File uploaded successfully",
-            fileName,
             fileUrl,
         });
     } catch (error) {
