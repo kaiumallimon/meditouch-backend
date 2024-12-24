@@ -1,11 +1,10 @@
 const express = require("express");
-const doctorController = require("../controllers/doctor.controller");
-const createUpload = require("../../../utils/image.upload");
+const doctorController = require("./../controllers/doctor.controller");
 const permissionMiddleware = require("../../../middlewares/apikey.middleware");
 const router = express.Router();
 
 // Set up multer upload instance for doctor profile image uploads
-const upload = createUpload(); // Define the path for image storage
+// const upload = createUpload(); // Define the path for image storage
 
 // Define the routes
 
@@ -25,12 +24,12 @@ router.get(
 );
 
 // Update a doctor's information
-router.put(
-  "/update/:id",
-  permissionMiddleware("write"),
-  upload.single("image"),
-  doctorController.updateDoctor
-);
+// router.put(
+//   "/update/:id",
+//   permissionMiddleware("write"),
+//   upload.single("image"),
+//   doctorController.updateDoctor
+// );
 
 // Delete a doctor
 router.delete(

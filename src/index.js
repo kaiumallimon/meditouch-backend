@@ -17,6 +17,8 @@ const cartRoutes = require('./features/cart/routes/cart.route');
 const ordersRoutes = require('./features/orders/routes/orders.route');
 const doctor = require('./features/telemedicine/routes/doctor.routes');
 const chatbotRoutes = require('./features/Chatbot/routes/chatbot.routes');
+const nurseRoute = require('./features/auth/routes/nurse.auth.routes')
+const gdiveRoutes = require('./features/gdrive/routes/gdrive.routes');
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -42,6 +44,12 @@ app.use(
 
 // Connect to the database
 connectDB();
+
+
+// show a default message for the root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the MediTouch API');
+});
 
 // Serve static files
 app.use('/uploads', express.static('uploads'));
@@ -75,6 +83,12 @@ app.use('/community',communityFeatureRoutes);
 // use the cart route
 app.use('/cart',cartRoutes);
 app.use('/epharmacy/orders',ordersRoutes);
+
+// use the nurse route
+app.use('/auth/nurse',nurseRoute);
+
+// use the gdrive route
+app.use('/gdrive',gdiveRoutes);
 
 
 // For Meditouch RAG API
