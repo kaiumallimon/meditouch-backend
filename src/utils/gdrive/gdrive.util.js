@@ -22,6 +22,11 @@ exports.uploadFile = async (fileObject) => {
         const bufferStream = new stream.PassThrough();
         bufferStream.end(fileObject.buffer);
 
+        // Generate a new name based on the current timestamp
+        const timestamp = Date.now();
+        const fileExtension = fileObject.originalname.split('.').pop();
+        const newFileName = `${timestamp}.${fileExtension}`;
+
         // Upload the file to Google Drive
         const drive = google.drive({ version: 'v3', auth });
         const { data } = await drive.files.create({
@@ -30,12 +35,11 @@ exports.uploadFile = async (fileObject) => {
                 body: bufferStream,  // Using the buffer stream
             },
             requestBody: {
-                name: fileObject.originalname,
+                name: newFileName,
                 parents: folderId ? [folderId] : [],  // Ensure folderId is set
             },
             fields: 'id,name',
         });
-
 
         // Make the file publicly accessible
         await drive.permissions.create({
@@ -49,7 +53,7 @@ exports.uploadFile = async (fileObject) => {
         // Generate the file's public URL
         const fileUrl = `https://drive.google.com/uc?export=view&id=${data.id}`;
 
-        return { fileName: data.name, fileUrl };  // Return the file name and URL
+        return fileUrl;  // Return the file name and URL
     } catch (err) {
         console.error("Error uploading file to Google Drive:", err.message);
         throw new Error(`Error uploading file to Google Drive: ${err.message}`);
