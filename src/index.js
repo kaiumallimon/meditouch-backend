@@ -17,6 +17,7 @@ const cartRoutes = require('./features/cart/routes/cart.route');
 const ordersRoutes = require('./features/orders/routes/orders.route');
 const doctor = require('./features/telemedicine/routes/doctor.routes');
 const nurseRoute = require('./features/auth/routes/nurse.auth.routes')
+const gdiveRoutes = require('./features/gdrive/routes/gdrive.routes');
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -76,9 +77,11 @@ app.use('/community',communityFeatureRoutes);
 app.use('/cart',cartRoutes);
 app.use('/epharmacy/orders',ordersRoutes);
 
-
 // use the nurse route
 app.use('/auth/nurse',nurseRoute);
+
+// use the gdrive route
+app.use('/gdrive',gdiveRoutes);
 
 
 // Create HTTP server and attach Socket.IO
