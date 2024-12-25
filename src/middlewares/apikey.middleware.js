@@ -1,9 +1,9 @@
-const { checkApiKey } = require("../features/apikey/controllers/apikey.controller");
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 // Middleware to check API Key and permissions (read/write)
 const permissionMiddleware = (requiredPermission) => {
-    return async (req, res, next) => {
+    return (req, res, next) => {
         try {
             const apiKey = req.headers['x-api-key'];
 
@@ -11,18 +11,19 @@ const permissionMiddleware = (requiredPermission) => {
                 return res.status(401).json({ message: "API Key is required." });
             }
 
-            const keyData = await checkApiKey(apiKey);
-            if (keyData.status !== 'success') {
+            // Compare the API key with the one in the .env file
+            if (apiKey !== process.env.X_API_KEY) {
                 return res.status(401).json({ message: "Invalid API Key" });
             }
 
-            // Check if the API key has the required permission (read or write)
-            if (!keyData.permission[requiredPermission]) {
-                return res.status(401).json({ message: "Unauthorized access." });
+            // Optionally handle permissions, if needed
+            const permissions = process.env.API_PERMISSIONS ? JSON.parse(process.env.API_PERMISSIONS) : {};
+            if (!permissions[requiredPermission]) {
+                return res.status(403).json({ message: "Unauthorized access." });
             }
 
-            req.apiKeyData = keyData;  // Store the key data for later use
-            next();  // Pass control to the next middleware or route handler
+            req.apiKeyData = { apiKey, permissions }; // Attach API key data for later use
+            next(); // Pass control to the next middleware or route handler
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
