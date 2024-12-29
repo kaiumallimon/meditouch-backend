@@ -19,6 +19,7 @@ const doctor = require('./features/telemedicine/routes/doctor.routes');
 const chatbotRoutes = require('./features/Chatbot/routes/chatbot.routes');
 const nurseRoute = require('./features/auth/routes/nurse.auth.routes')
 const gdiveRoutes = require('./features/gdrive/routes/gdrive.routes');
+const medeasyRoutes = require('./features/medeasy_build_id/routes/medeasy.route');
 
 // Import socket config
 const { initializeSocket } = require('./config/socket.config');
@@ -93,6 +94,9 @@ app.use('/gdrive',gdiveRoutes);
 
 // For Meditouch RAG API
 app.use('/cb', chatbotRoutes);
+
+// Use medeasy-build id route
+app.use('/medeasy/', medeasyRoutes);
 
 
 
