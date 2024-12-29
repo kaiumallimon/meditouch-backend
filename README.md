@@ -7,7 +7,6 @@ MediTouch is a groundbreaking initiative aimed at transforming healthcare delive
 ### Project Structure
 With an example of auth API (with passport.js):
 ```bash
-meditouch-backend/
 |-- .env
 |-- .gitignore
 |-- package-lock.json
@@ -16,7 +15,14 @@ meditouch-backend/
 |-- src
     |-- config
         |-- database.config.js
+        |-- socket.config.js
     |-- features
+        |-- admin
+            |-- home
+                |-- controllers
+                    |-- admin.home.controller.js
+                |-- routes
+                    |-- admin.home.route.js
         |-- apikey
             |-- controllers
                 |-- apikey.controller.js
@@ -26,19 +32,33 @@ meditouch-backend/
             |-- controllers
                 |-- auth.controller.js
                 |-- doctor.auth.controller.js
+                |-- nurse.auth.controller.js
             |-- routes
                 |-- auth.routes.js
                 |-- doctor.auth.routes.js
+                |-- nurse.auth.routes.js
         |-- cart
             |-- controllers
                 |-- cart.controller.js
             |-- routes
                 |-- cart.route.js
+        |-- Chatbot
+            |-- controller
+                |-- chatbot.controller.js
+            |-- routes
+                |-- chatbot.routes.js
         |-- community
             |-- controllers
                 |-- community.controller.js
             |-- routes
                 |-- community.routes.js
+            |-- socket
+                |-- community.socket.js
+        |-- gdrive
+            |-- controllers
+                |-- gdrive.controller.js
+            |-- routes
+                |-- gdrive.routes.js
         |-- healthtips
             |-- controllers
                 |-- healthtips.controller.js
@@ -46,6 +66,11 @@ meditouch-backend/
                 |-- healthtips.routes.js
         |-- mail
             |-- mail.sender.js
+        |-- orders
+            |-- controllers
+                |-- orders.controller.js
+            |-- routes
+                |-- orders.route.js
         |-- telemedicine
             |-- controllers
                 |-- doctor.controller.js
@@ -56,6 +81,8 @@ meditouch-backend/
                 |-- test.controller.js
             |-- routes
                 |-- test.route.js
+    |-- global
+        |-- socket.routes.js
     |-- index.js
     |-- middlewares
         |-- apikey.middleware.js
@@ -65,13 +92,20 @@ meditouch-backend/
         |-- community.model.js
         |-- doctor.model.js
         |-- healthtips.model.js
+        |-- nurse.model.js
+        |-- orders.model.js
         |-- user.model.js
     |-- server.js
     |-- utils
+        |-- gdrive
+            |-- gdrive.util.js
         |-- generate.random.password.js
         |-- image.upload.js
+        |-- LangflowService.js
 |-- tasklist.md
 |-- uploads
+|-- vercel.json
+
 
 ```
 
@@ -133,7 +167,11 @@ SESSION_SECRET=IUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCO
 JWT_SECRET = IUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCOIUZ5cfiJeFl0rsCO	
 EMAIL= meditouch.bcrypt@gmail.com
 EMAIL_PASSWORD= gfhwoutfhcmkaukn
+
+
+#API Key varrification
 X_API_KEY= p5xBzm5vWlni1f9VertqKkdOgUJaQCcX
+API_PERMISSIONS={"read":true,"write":true}
 
 
 ## Google service account
@@ -151,15 +189,20 @@ GOOGLE_SERVICE_ACCOUNT = '{
   "universe_domain": "googleapis.com"
 }'
 
-API_URL=https://arnobbot-langflow-testbot.hf.space/api/v1/run/de4ef838-7fa6-4b19-b668-0bd8d206ef6c?stream=false
-BEARER_TOKEN=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
-X_API_KEY=sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I
 
+#for chatbot
 Datastex_application_token = AstraCS:qNWdweGZzZrUgimZutpePzOS:e90709edfd3580ffddbbbab05761d268f34ae074e5c7f36f41478554ca1018a4
 Datastex_application_URL = https://api.langflow.astra.datastax.com
 
 ## gdrive folder id
 GDRIVE_FOLDER_ID = 1RJOgnfJCMKshKTZwng5d1sM09Eh1rrni
+
+
+## Unused env
+#API_URL=https://arnobbot-langflow-testbot.hf.space/api/v1/run/de4ef838-7fa6-4b19-b668-0bd8d206ef6c?stream=false
+#BEARER_TOKEN=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
+#X_API_KEY=sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I
+
 
 ```
 

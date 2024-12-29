@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { runFlowController } = require('../controller/chatbot.controller');
+const permissionMiddleware = require('../../../middlewares/apikey.middleware');
+const ChatController = require('../controller/chatbot.controller');
 
-// Rename the endpoint to `/callchat`
-router.post('/callchat', runFlowController);
+
+router.post('/sendChat',permissionMiddleware('write'), ChatController.runFlowController);
+router.post('/getDocAvailablity',permissionMiddleware('write'), ChatController.findDoctorAndAvailableTimes);
 
 module.exports = router;
