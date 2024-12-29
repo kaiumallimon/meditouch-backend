@@ -203,7 +203,8 @@ GDRIVE_FOLDER_ID = 1RJOgnfJCMKshKTZwng5d1sM09Eh1rrni
 #BEARER_TOKEN=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
 #X_API_KEY=sk-z5DItXbxYfxm1OhbjOMFkGDpH4UMwXD8Q2Sd3ncUF1I
 
-
+# Medeasy url
+MEDEASY_API_BASE_URL = https://medeasy.health
 ```
 
 ### Api validation with api keys
